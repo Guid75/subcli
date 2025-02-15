@@ -1,9 +1,11 @@
 #!/usr/bin/env bun
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { render, Box, useStdout } from "ink";
 import terminalSize from "terminal-size";
-import { FileBrowser } from "./src/FileBrowser";
+import { VideosView } from "./src/videos/VideosView";
+import { Provider } from "react-redux";
+import { store } from "./src/store";
 
 const FullScreenApp = () => {
   const { columns, rows } = terminalSize();
@@ -26,9 +28,11 @@ const FullScreenApp = () => {
   }, []);
 
   return (
-    <Box width={width} height={height}>
-      <FileBrowser />
-    </Box>
+    <Provider store={store}>
+      <Box width={width} height={height}>
+        <VideosView />
+      </Box>
+    </Provider>
   );
 };
 const r = render(<FullScreenApp />);

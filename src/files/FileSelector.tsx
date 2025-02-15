@@ -1,3 +1,4 @@
+import path from "node:path";
 import { Box, Text } from "ink";
 
 export type Entry = {
@@ -5,23 +6,23 @@ export type Entry = {
   value: string;
 };
 
-export const EntrySelector = ({
+export const FileSelector = ({
   entries,
   selectedIndex,
 }: {
-  entries: Entry[];
-  selectedIndex: number;
+  entries: string[];
+  selectedIndex?: number;
 }) => {
   const entriesTextItems =
     entries.length > 0 ? (
       entries.map((entry, index) => (
         <Text
-          key={entry.value}
+          key={entry}
           color="yellow"
           inverse={selectedIndex === index}
           wrap="truncate"
         >
-          {entry.label}
+          {path.basename(entry)}
         </Text>
       ))
     ) : (
@@ -34,6 +35,7 @@ export const EntrySelector = ({
       borderStyle="round"
       borderColor="cyan"
       flexDirection="column"
+      overflow="hidden"
     >
       {entriesTextItems}
     </Box>
